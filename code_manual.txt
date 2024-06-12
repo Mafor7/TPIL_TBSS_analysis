@@ -1,0 +1,26 @@
+Here is a manual to help you guide through my scripts and how I've used them for my research:
+
+First, I started processing my images with FSL's TBSS tool in the scrip TBSS_processing.sh. 
+This script runs TBSS analysis between clbp and control for visit 1, 2 and 3 for FA, RD, MD and AD 
+and also between control v1 and v2, v1 and v3 and v2 and v3 and also between clbp v1 and v2, v1 and v3 and v2 and v3. 
+
+Second, TBSS_cluster_txt.sh will take the output files created by TBSS_processing.sh and store them as .txt files.
+It will combine tstat1 (CLBP > CTL) and tstat2 (CLBP < CTL) files together for FA, RD, MD and AD.
+The script will also find the overlapping significant voxels between visit and store them in a .txt file for FA, RD, MD and AD.
+
+Third, the histogram.py script will use these text files to make histograms of the number of significant voxels per cluster size.
+This will allow me to compare significantly different clusters between groups and time points 
+
+
+I also want to do the friedman test on different voxels of the TBSS skeleton. TBSS_friedman_processing.sh prepares the desired files.
+It thresholds the tstat maps from the TBSS analysis, binarizes them and multiplies these files with the common skeleton mask for all visits.
+It can then multiply this mask to the DTI metric according to the corresponding visit. It does this operation for all DTI metrics for every visit 
+with the all TBSS clusters, overlapping clusters and whole skeleton.
+TBSS_friedman_analyis.py uses the friedman_variability_img() function to extract the FA values and put them in a Dataframe to calculate 
+the Friedman statistics. It then outputs the friedman statistics on the images. 
+
+
+TBSS_overlap.sh is a script to calculate the percent overlap between specific images and
+TBSS_count.sh is a script that counts the number of voxels in a specific image. 
+TBSS_variable_cluster.sh is a script to creates files with only the variable clusters
+TBSS_cluster_selection.sh is a script that creates files for the selected clusters
