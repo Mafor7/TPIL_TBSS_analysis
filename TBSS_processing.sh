@@ -3,6 +3,99 @@
 ### TBSS processing documentation. See full documentation at https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/TBSS/UserGuide. TBSS is designed to process FA data. 
 ### Simply copy the FA images into a new folder for TBSS analysis.
 
+### Extract files and rename them according to TBSS nomenclature
+python3 - <<END
+import os
+import sys
+sys.path.append('/Users/Marc-Antoine/repositories/TPIL_TBSS_analysis')
+from export_files import extract_files_from_folder, rename_files
+
+source_folder = '/Volumes/PT_DATA2/23-07-05_DTI_metrics'                # Replace this with the actual path to your source folder
+print(os.listdir(source_folder))
+
+# Call the function to extract files from the 'clbp' and 'control' folders for fa
+extract_files_from_folder(os.path.join(source_folder, 'clbp'), condition='clbp', metric='fa')
+extract_files_from_folder(os.path.join(source_folder, 'control'), condition='con', metric='fa')
+
+# Rename extracted files to convention:
+folder_path1 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/fa/v1"
+delete_string1 = "_ses-v1_"
+add_string1 = "v1"
+folder_path2 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/fa/v2"
+delete_string2 = "_ses-v2_"
+add_string2 = "v2"
+folder_path3 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/fa/v3"
+delete_string3 = "_ses-v3_"
+add_string3 = "v3"
+
+rename_files(folder_path=folder_path1, delete_string=delete_string1, add_string=add_string1)
+rename_files(folder_path=folder_path2, delete_string=delete_string2, add_string=add_string2)
+rename_files(folder_path=folder_path3, delete_string=delete_string3, add_string=add_string3)
+
+# Call the function to extract files from the 'clbp' and 'control' folders for md
+extract_files_from_folder(os.path.join(source_folder, 'clbp'), condition='clbp', metric='md')
+extract_files_from_folder(os.path.join(source_folder, 'control'), condition='con', metric='md')
+
+# Rename extracted files to convention:
+folder_path1 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/md/v1"
+delete_string1 = "_ses-v1_"
+add_string1 = "v1"
+folder_path2 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/md/v2"
+delete_string2 = "_ses-v2_"
+add_string2 = "v2"
+folder_path3 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/md/v3"
+delete_string3 = "_ses-v3_"
+add_string3 = "v3"
+
+rename_files(folder_path=folder_path1, delete_string=delete_string1, add_string=add_string1)
+rename_files(folder_path=folder_path2, delete_string=delete_string2, add_string=add_string2)
+rename_files(folder_path=folder_path3, delete_string=delete_string3, add_string=add_string3)
+
+# Call the function to extract files from the 'clbp' and 'control' folders for rd
+extract_files_from_folder(os.path.join(source_folder, 'clbp'), condition='clbp', metric='rd')
+extract_files_from_folder(os.path.join(source_folder, 'control'), condition='con', metric='rd')
+
+# Rename extracted files to convention:
+folder_path1 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/rd/v1"
+delete_string1 = "_ses-v1_"
+add_string1 = "v1"
+folder_path2 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/rd/v2"
+delete_string2 = "_ses-v2_"
+add_string2 = "v2"
+folder_path3 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/rd/v3"
+delete_string3 = "_ses-v3_"
+add_string3 = "v3"
+
+rename_files(folder_path=folder_path1, delete_string=delete_string1, add_string=add_string1)
+rename_files(folder_path=folder_path2, delete_string=delete_string2, add_string=add_string2)
+rename_files(folder_path=folder_path3, delete_string=delete_string3, add_string=add_string3)
+
+# Call the function to extract files from the 'clbp' and 'control' folders for ad
+extract_files_from_folder(os.path.join(source_folder, 'clbp'), condition='clbp', metric='ad')
+extract_files_from_folder(os.path.join(source_folder, 'control'), condition='con', metric='ad')
+
+# Rename extracted files to convention:
+folder_path1 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/ad/v1"
+delete_string1 = "_ses-v1_"
+add_string1 = "v1"
+folder_path2 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/ad/v2"
+delete_string2 = "_ses-v2_"
+add_string2 = "v2"
+folder_path3 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/ad/v3"
+delete_string3 = "_ses-v3_"
+add_string3 = "v3"
+
+rename_files(folder_path=folder_path1, delete_string=delete_string1, add_string=add_string1)
+rename_files(folder_path=folder_path2, delete_string=delete_string2, add_string=add_string2)
+rename_files(folder_path=folder_path3, delete_string=delete_string3, add_string=add_string3)
+
+### file de départ example:  /Volumes/PT_DATA2/23-07-05_DTI_metrics/clbp/sub-pl007_ses-v1/DTI_Metrics/sub-pl007_ses-v1__fa.nii.gz
+### File must be changed to this so that TBSS can run with my scripts:   /Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/v1/v1_clbp_sub-pl007_fa.nii.gz
+
+END
+
+
+
 ### select directory with TBSS files
 ### Ex: cd /mnt/d/Marc-Antoine/TBSS/v1
 cd /Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/v1
@@ -149,6 +242,7 @@ randomise -i all_AD_skeletonised.nii.gz -o /Volumes/PT_DATA2/Marc-Antoine/myTBSS
 ########################################################################
 
 ### The next section runs TBSS on the control group between visits of the same group 
+### Be sure to create the folders before running the scripts
 
 ### Proceed with same methodology for control subjects between visit 1 and 2
 cd /Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/control/v1v2

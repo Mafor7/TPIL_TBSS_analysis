@@ -207,7 +207,7 @@ def main():
         "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/control/v2v3/MD_tstat_clust_sum.txt"
     ]
 
-    plot_cluster_histogram(cluster_files_md, cluster_files_overlap_md, output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/combined_histogram_MD", boundary_low=60, boundary_high=140, metric="MD")
+    # plot_cluster_histogram(cluster_files_md, cluster_files_overlap_md, output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/combined_histogram_MD", boundary_low=60, boundary_high=140, metric="MD")
     # plot_cluster_histogram(cluster_files_clbp_md, cluster_files_control_md, output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/combined_histogram_between_visits_MD", boundary_low=60, boundary_high=140, metric="MD")
 
     # Process all cluster files RD
@@ -233,7 +233,7 @@ def main():
         "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/control/v2v3/RD_tstat_clust_sum.txt"
     ]
 
-    plot_cluster_histogram(cluster_files_rd, cluster_files_overlap_rd, output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/combined_histogram_RD", boundary_low=60, boundary_high=140, metric="RD")
+    # plot_cluster_histogram(cluster_files_rd, cluster_files_overlap_rd, output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/combined_histogram_RD", boundary_low=60, boundary_high=140, metric="RD")
     # plot_cluster_histogram(cluster_files_clbp_rd, cluster_files_control_rd, output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/combined_histogram_between_visits_RD", boundary_low=60, boundary_high=140, metric="RD")
 
     # Process all cluster files AD
@@ -259,7 +259,7 @@ def main():
         "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/control/v2v3/AD_tstat_clust_sum.txt"
     ]
 
-    plot_cluster_histogram(cluster_files_ad, cluster_files_overlap_ad, output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/combined_histogram_AD", boundary_low=60, boundary_high=160, metric="AD")
+    # plot_cluster_histogram(cluster_files_ad, cluster_files_overlap_ad, output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/combined_histogram_AD", boundary_low=60, boundary_high=160, metric="AD")
     # plot_cluster_histogram(cluster_files_clbp_ad, cluster_files_control_ad, output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/combined_histogram_between_visits_AD", boundary_low=60, boundary_high=160, metric="AD")
 
     # file_list1_FA = [

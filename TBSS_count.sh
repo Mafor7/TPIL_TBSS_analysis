@@ -58,7 +58,7 @@ AD_conjunction_clbp="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_c
 AD_conjunction_con="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust1_friedman_con_conjunction.nii.gz"
 
 # Threshold value
-threshold=6
+threshold=5.991
 
 # Threshold the images and count voxels
 count_voxels() {

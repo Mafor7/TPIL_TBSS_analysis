@@ -48,6 +48,43 @@ def extract_files_from_folder(folder_path, condition='clbp', metric='md'):
                     print(f"Copying file: {source_file} to {destination_file}")
                     shutil.copy(source_file, destination_file)
 
+def extract_files_from_folder_descoteaux(folder_path, metric='md'):
+    destination_folder = f'/Volumes/PT_DATA2/Marc-Antoine/DescoteauxTBSS/{metric}'  # Replace this with the actual path to your destination folder
+    # Create the destination folder if it doesn't exist
+    os.makedirs(destination_folder, exist_ok=True)
+
+    root = folder_path
+    for dir in os.listdir(folder_path):
+        subfolder_path = os.path.join(root, dir)
+        if os.path.isdir(subfolder_path):
+            dti_metrics_path = os.path.join(subfolder_path, 'DTI_Metrics')
+            if os.path.exists(dti_metrics_path):
+                for filename in os.listdir(dti_metrics_path):
+                    if filename.endswith(f'{metric}.nii.gz'):
+                        source_file = os.path.join(dti_metrics_path, filename)
+
+                        # Replacing 'md' with 'fa' in the destination filename
+                        destination_filename = filename.replace(f'{metric}', 'fa')  # Specify the metric
+
+                        # Extracting v1, v2, or v3 from the filename
+                        version = None
+                        if 'ses-1' in filename:
+                            version = 'v1'
+                        elif 'ses-3' in filename:
+                            version = 'v3'
+                        elif 'ses-5' in filename:
+                            version = 'v5'
+                        
+                        # Creating a subfolder based on the version if it doesn't exist
+                        if version:
+                            version_folder = os.path.join(destination_folder, version)
+                            os.makedirs(version_folder, exist_ok=True)
+                            
+                            destination_file = os.path.join(version_folder, destination_filename)
+                            print(f"Copying file: {source_file} to {destination_file}")
+                            shutil.copy(source_file, destination_file)
+
+
 def rename_files(folder_path, delete_string=None, old_string=None, new_string=None, add_string=None):
     """
     Rename files within the specified folder by deleting a string, replacing an old string with a new one,
@@ -70,6 +107,8 @@ def rename_files(folder_path, delete_string=None, old_string=None, new_string=No
         # Perform deletion if delete_string is provided
         if delete_string:
             new_file_name = new_file_name.replace(delete_string, '')
+        else:
+            print(f"'{delete_string}' not found in '{file_name}'")
         # Perform replacement if old_string and new_string are provided
         if old_string and new_string:
             new_file_name = new_file_name.replace(old_string, new_string)
@@ -82,27 +121,3 @@ def rename_files(folder_path, delete_string=None, old_string=None, new_string=No
         # Rename the file
         os.rename(old_path, new_path)
         print(f"Renamed {file_name} to {new_file_name}")
-
-
-if __name__ == '__main__':
-    
-    source_folder = '/Volumes/PT_DATA2/23-07-05_DTI_metrics'                # Replace this with the actual path to your source folder
-    print(os.listdir(source_folder))
-    # Call the function to extract files from the 'clbp' and 'control' folders
-    extract_files_from_folder(os.path.join(source_folder, 'clbp'), condition='clbp', metric='ad')
-    extract_files_from_folder(os.path.join(source_folder, 'control'), condition='con', metric='ad')
-
-    # Rename extracted files to convention:
-    folder_path1 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/ad/v1"
-    delete_string1 = "_ses-v1_"
-    add_string1 = "v1"
-    folder_path2 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/ad/v2"
-    delete_string2 = "_ses-v2_"
-    add_string2 = "v2"
-    folder_path3 = "/Volumes/PT_DATA2/Marc-Antoine/myTBSS/ad/v3"
-    delete_string3 = "_ses-v3_"
-    add_string3 = "v3"
-
-    rename_files(folder_path=folder_path1, delete_string=delete_string1, add_string=add_string1)
-    rename_files(folder_path=folder_path2, delete_string=delete_string2, add_string=add_string2)
-    rename_files(folder_path=folder_path3, delete_string=delete_string3, add_string=add_string3)

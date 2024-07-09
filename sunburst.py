@@ -23,6 +23,7 @@ import numpy as np
 import os
 import plotly.express as px
 import plotly.graph_objects as go
+import plotly.colors as pc
 
 
 def sunburst_friedman():
@@ -80,7 +81,7 @@ def sunburst_friedman():
 
     fig.write_html("/Users/Marc-Antoine/Downloads/sunburst_friedman.html")
 
-sunburst_friedman()
+# sunburst_friedman()
 
 def sunburst_overlap_tbss():
     # Sunburst table
@@ -90,9 +91,13 @@ def sunburst_overlap_tbss():
     df_c = pd.read_excel(path_results, sheet_name="RD", header=0, usecols="L:O")
     df_d = pd.read_excel(path_results, sheet_name="AD", header=0, usecols="L:O")
     
-    # Define the dataframes and colors
+    # Define the dataframes
     dataframes = [df_a, df_b, df_c, df_d]
-    colors = ['red', 'blue', 'green', 'orange']
+    
+    # Create a color palette with a unique color for each unique ID
+    unique_ids = pd.concat([df.idss for df in dataframes]).unique()
+    colors = pc.qualitative.Plotly
+    color_map = {uid: colors[i % len(colors)] for i, uid in enumerate(unique_ids)}
     
     # Create a new figure
     fig = go.Figure()
@@ -101,9 +106,12 @@ def sunburst_overlap_tbss():
     positions = [(0, 0), (0, 1), (1, 0), (1, 1)]
 
     # Loop through dataframes and add Sunburst traces
-    for i, (df_data, color) in enumerate(zip(dataframes, colors)):
+    for i, df_data in enumerate(dataframes):
         row, col = positions[i]
         primary_df = df_data
+
+        # Map colors based on the ids
+        mapped_colors = [color_map[id_] for id_ in primary_df.idss]
 
         fig.add_trace(go.Sunburst(
             ids=primary_df.idss,
@@ -113,7 +121,7 @@ def sunburst_overlap_tbss():
             branchvalues="total",
             insidetextorientation='radial',
             domain=dict(column=col, row=row),  # Adjust column and row indices based on position
-            marker=dict(colors=[color] * len(primary_df.idss)),  # Ensure to provide an array of colors
+            marker=dict(colors=mapped_colors),  # Apply mapped colors
             textfont=dict(size=18),  # Set the font size
             textinfo='label',  # Display labels
             outsidetextfont=dict(size=14)  # Allow text to spill out with the same font size
@@ -122,8 +130,8 @@ def sunburst_overlap_tbss():
     fig.update_layout(
         grid=dict(columns=2, rows=2),  # Adjust the number of rows
         margin=dict(t=0, l=0, r=0, b=0),
-        plot_bgcolor='lightgray',  # Set the plot background color
-        paper_bgcolor='lightgray'  # Set the entire figure background colo
+        # plot_bgcolor='lightgray',  # Set the plot background color
+        # paper_bgcolor='lightgray'  # Set the entire figure background color
     )
     fig.update_layout(uniformtext=dict(minsize=18, mode='show'))
 
@@ -132,4 +140,4 @@ def sunburst_overlap_tbss():
 
     fig.write_html("/Users/Marc-Antoine/Downloads/sunburst_TBSS_overlap.html")
 
-# sunburst_overlap_tbss()
+sunburst_overlap_tbss()
