@@ -34,18 +34,14 @@ def main():
     # call_bash_script("/Users/Marc-Antoine/Documents/tpil_network_analysis/TBSS_friedman_processing.sh")
 
     ## Create files of clustered significantly different voxel of the TBSS skeleton
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v1/FA_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v1/FA_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/v1/FA_clust", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v1/MD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v1/MD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/v1/MD_clust", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v1/RD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v1/RD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/v1/RD_clust", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v1/AD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v1/AD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/v1/AD_clust", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/FA_clust", conjunction=True)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/MD_clust", conjunction=True)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/RD_clust", conjunction=True)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust", conjunction=True)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_FA", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/whole_skeleton_FA", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_MD", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/whole_skeleton_MD", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_RD", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/whole_skeleton_RD", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_AD", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/whole_skeleton_AD", conjunction=False)
+    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/FA_clust", conjunction=True)
+    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/MD_clust", conjunction=True)
+    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/RD_clust", conjunction=True)
+    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/AD_clust", conjunction=True)
+    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_FA", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/whole_skeleton_FA", conjunction=False)
+    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_MD", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/whole_skeleton_MD", conjunction=False)
+    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_RD", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/whole_skeleton_RD", conjunction=False)
+    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_AD", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/whole_skeleton_AD", conjunction=False)
 
 if __name__ == "__main__":
     main()

@@ -63,7 +63,7 @@ def sunburst_friedman():
             parents=primary_df.parent,
             values=primary_df.value,
             branchvalues="total",
-            insidetextorientation='radial',
+            # insidetextorientation='radial',
             domain=dict(column=1, row=i),  # Adjust row index to stack vertically
             marker=dict(colors=[color]*len(primary_df.id))  # Ensure to provide an array of colors
         ))
@@ -71,8 +71,8 @@ def sunburst_friedman():
     fig.update_layout(
         grid=dict(columns=2, rows=4),  # Adjust the number of rows
         margin=dict(t=0, l=0, r=0, b=0),
-        plot_bgcolor='lightgray',  # Set the plot background color
-        paper_bgcolor='lightgray'  # Set the entire figure background colo
+        # plot_bgcolor='lightgray',  # Set the plot background color
+        # paper_bgcolor='lightgray'  # Set the entire figure background colo
     )
     fig.update_layout(uniformtext=dict(minsize=12, mode='show'))
 

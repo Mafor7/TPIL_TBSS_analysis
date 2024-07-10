@@ -266,7 +266,7 @@ def friedman_variability_img(input, output, input2=None, conjunction=False):
     friedman_test_con.to_csv(f"{output}_friedman_con.csv")
     
     # Load original image
-    original_img = nib.load("/Volumes/PT_DATA2/Marc-Antoine/TBSS/data/v1/stats/all_FA_skeletonised.nii.gz")
+    original_img = nib.load("/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/v1/stats/all_FA_skeletonised.nii.gz")
     friedman_img_clbp = associate_friedman_statistic_with_voxels(friedman_test_clbp, original_img)
     friedman_img_con = associate_friedman_statistic_with_voxels(friedman_test_con, original_img)
 
