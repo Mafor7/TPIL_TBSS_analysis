@@ -324,38 +324,4 @@ def call_bash_script(script_path):
     except subprocess.CalledProcessError as e:
         print(f"Error executing Bash script: {e}")
 
-def prepare_dataframe(df, visit_number):
-    # Step 1: Transpose the dataframe
-    trans_df = df.T
 
-    # Step 2: Rename columns to the original index values
-    trans_df.columns = df.index
-
-    # Step 3: Rename the index to a simple list of integers
-    trans_df.index = range(len(trans_df))
-
-    # Step 4: Insert a 'visit' column with the specified visit_number
-    trans_df.insert(0, 'visit', visit_number)
-
-    return trans_df
-
-def dataframe_to_RData(df_v1, df_v2, df_v3, output_path):
-    """
-    Transforms Dataframes v1,v2,v3 with Subject in columns and voxels in rows to a format fit for I2C2 in R
-
-    Parameters:
-        - df_v1: DataFrame for visit 1
-        - df_v2: DataFrame for visit 2
-        - df_v3: DataFrame for visit 3
-        - output_path: string, output path of .RData file
-    """
-    # Prepare each dataframe
-    trans_df_v1 = prepare_dataframe(df_v1, 1)
-    trans_df_v2 = prepare_dataframe(df_v2, 2)
-    trans_df_v3 = prepare_dataframe(df_v3, 3)
-    
-    df_concat = pd.concat([trans_df_v1, trans_df_v2, trans_df_v3], ignore_index=True)
-    df_concat.reset_index(inplace=True)
-    df_concat = df_concat.sort_values(by=['index', 'visit']).reset_index(drop=True)
-    print(df_concat) 
-    pyreadr.write_rdata(output_path, df_concat)

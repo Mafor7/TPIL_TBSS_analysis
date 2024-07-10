@@ -24,6 +24,7 @@ import os
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.colors as pc
+from plotly.subplots import make_subplots
 
 
 def sunburst_friedman():
@@ -140,4 +141,115 @@ def sunburst_overlap_tbss():
 
     fig.write_html("/Users/Marc-Antoine/Downloads/sunburst_TBSS_overlap.html")
 
-sunburst_overlap_tbss()
+# sunburst_overlap_tbss()
+
+def friedman_plot():
+    # Sample data (you need to replace this with your actual data)
+    data = [
+        {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 4},
+        {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 97},
+        {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 5},
+        {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 96},
+        {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 6458},
+        {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 83755},
+        {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 6501},
+        {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 83712}
+    ]
+
+    # Colors for the bars
+    colors = {
+        'Variable': 'blue',
+        'Stable': 'green'
+    }
+
+    # Create the figure with subplots
+    fig = make_subplots(rows=1, cols=2, subplot_titles=("Overlap Clusters (101 voxels)", "Whole Skeleton (90213 voxels)"))
+
+    # Add data for the Overlap Cluster subplot
+    for group in ['Control', 'CLBP']:
+        for dtype in ['Variable', 'Stable']:
+            subset = [d for d in data if d['Group'] == group and d['Condition'] == 'Overlap Cluster' and d['Type'] == dtype]
+            fig.add_trace(
+                go.Bar(
+                    x=[group],
+                    y=[subset[0]['Number of Voxels']],
+                    name=f"{group} - {dtype}",
+                    legendgroup=dtype,
+                    marker_color=colors[dtype],
+                    showlegend=True if group == 'Control' else False
+                ),
+                row=1, col=1
+            )
+
+    # Add data for the Whole Skeleton subplot
+    for group in ['Control', 'CLBP']:
+        for dtype in ['Variable', 'Stable']:
+            subset = [d for d in data if d['Group'] == group and d['Condition'] == 'Whole Skeleton' and d['Type'] == dtype]
+            fig.add_trace(
+                go.Bar(
+                    x=[group],
+                    y=[subset[0]['Number of Voxels']],
+                    name=f"{group} - {dtype}",
+                    legendgroup=dtype,
+                    marker_color=colors[dtype],
+                    showlegend=False if dtype == 'Variable' else True
+                ),
+                row=1, col=2
+            )
+
+    # Update layout
+    fig.update_layout(
+        title_text="Number of Variable AD Voxels with Friedman test",
+        barmode='group',
+        yaxis_title="Number of Voxels"
+    )
+
+    # Show the figure
+    fig.show()
+
+friedman_plot()
+
+### FA data
+# data = [
+#         {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 8},
+#         {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 131},
+#         {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 3},
+#         {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 136},
+#         {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 6775},
+#         {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 83438},
+#         {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 5589},
+#         {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 84624}
+    # ]
+### MD data
+# data = [
+#         {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 1},
+#         {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 8},
+#         {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 1},
+#         {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 8},
+#         {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 6073},
+#         {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 84140},
+#         {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 6224},
+#         {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 83989}
+#     ]
+### RD data
+# data = [
+#         {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 1},
+#         {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 50},
+#         {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 2},
+#         {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 49},
+#         {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 6407},
+#         {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 83806},
+#         {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 5688},
+#         {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 84525}
+#     ]
+# ### AD data
+data = [
+        {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 4},
+        {'Group': 'Control', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 97},
+        {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Variable', 'Number of Voxels': 5},
+        {'Group': 'CLBP', 'Condition': 'Overlap Cluster', 'Type': 'Stable', 'Number of Voxels': 96},
+        {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 6458},
+        {'Group': 'Control', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 83755},
+        {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Variable', 'Number of Voxels': 6501},
+        {'Group': 'CLBP', 'Condition': 'Whole Skeleton', 'Type': 'Stable', 'Number of Voxels': 83712}
+    ]

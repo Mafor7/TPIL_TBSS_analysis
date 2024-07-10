@@ -23,124 +23,109 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import pyreadr
-from TBSS_functions import tbss_extractor1, friedman_variability_img, separate_multiclass_mask, call_bash_script, dataframe_to_RData
+from TBSS_functions import tbss_extractor1, friedman_variability_img, separate_multiclass_mask, call_bash_script
+
+def prepare_dataframe(df, visit_number):
+    # Step 1: Rename columns to a simple list of integers starting from 0
+    df.columns = range(df.shape[1])
+
+    # Step 2: Transpose the dataframe
+    trans_df = df.T
+
+    # Step 3: Add a 'subject' column with integers starting from 0
+    trans_df['subject'] = range(trans_df.shape[0])
+
+    # Step 4: Insert a 'visit' column with the specified visit_number
+    trans_df.insert(0, 'visit', visit_number)
+
+    return trans_df
+
+def dataframe_to_RData(df_v1, df_v2, df_v3, output_path):
+    """
+    Transforms Dataframes v1, v2, v3 with Subject in columns and voxels in rows to a format fit for I2C2 in R
+
+    Parameters:
+        - df_v1: DataFrame for visit 1
+        - df_v2: DataFrame for visit 2
+        - df_v3: DataFrame for visit 3
+        - output_path: string, output path of .RData file
+    """
+    # Prepare each dataframe
+    trans_df_v1 = prepare_dataframe(df_v1, 1)
+    trans_df_v2 = prepare_dataframe(df_v2, 2)
+    trans_df_v3 = prepare_dataframe(df_v3, 3)
+    
+    # Concatenate the dataframes
+    df_concat = pd.concat([trans_df_v1, trans_df_v2, trans_df_v3], ignore_index=True)
+
+    # Sort by 'subject' and 'visit'
+    df_concat = df_concat.sort_values(by=['subject', 'visit']).reset_index(drop=True)
+
+    print(df_concat) 
+    df_concat = df_concat.drop(columns=['subject'])
+    df_concat = df_concat.drop(columns=['visit'])
+    print(df_concat)
+    pyreadr.write_rdata(output_path, df_concat)
+
+
 
 def main():
-    # ## extract AD values for the whole TBSS skeleton
-    # filename1_clbp, filename1_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_AD_v1.nii.gz', visit=1)
-    # filename2_clbp, filename2_con= tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_AD_v2.nii.gz', visit=2)
-    # filename3_clbp, filename3_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_AD_v3.nii.gz', visit=3)
-    # output_clbp = "/Users/Marc-Antoine/Documents/R_analysis/whole_skeleton_AD_clbp.RData"
-    # output_con = "/Users/Marc-Antoine/Documents/R_analysis/whole_skeleton_AD_con.RData"
+   
+    ### Extract DTI values from selected cluster FA30
+    FA_30_clbp1, FA_30_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp30_v1.nii.gz', visit=1)
+    FA_30_clbp2, FA_30_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp30_v2.nii.gz', visit=2)
+    FA_30_clbp3, FA_30_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp30_v3.nii.gz', visit=3)
+    output_clbp_FA30 = "/Users/Marc-Antoine/Documents/R_analysis/FA30_clbp.RData"
+    output_con_FA30 = "/Users/Marc-Antoine/Documents/R_analysis/FA30_con.RData"
     
-    # dataframe_to_RData(filename1_clbp, filename2_clbp, filename3_clbp, output_clbp)
-    # dataframe_to_RData(filename1_con, filename2_con, filename3_con, output_con)
 
-    # ## extract FA values for the whole TBSS skeleton
-    # filename1_clbp, filename1_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_FA_v1.nii.gz', visit=1)
-    # filename2_clbp, filename2_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_FA_v2.nii.gz', visit=2)
-    # filename3_clbp, filename3_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_FA_v3.nii.gz', visit=3)
-    # output_clbp = "/Users/Marc-Antoine/Documents/R_analysis/whole_skeleton_FA_clbp.RData"
-    # output_con= "/Users/Marc-Antoine/Documents/R_analysis/whole_skeleton_FA_con.RData"
+    dataframe_to_RData(FA_30_clbp1, FA_30_clbp2, FA_30_clbp3, output_clbp_FA30)
+    dataframe_to_RData(FA_30_con1, FA_30_con2, FA_30_con3, output_con_FA30)
 
-    # dataframe_to_RData(filename1_clbp, filename2_clbp, filename3_clbp, output_clbp)
-    # dataframe_to_RData(filename1_con, filename2_con, filename3_con, output_con)
-
-    # ## extract RD values for the whole TBSS skeleton
-    # filename1_clbp, filename1_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_RD_v1.nii.gz', visit=1)
-    # filename2_clbp,filename2_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_RD_v2.nii.gz', visit=2)
-    # filename3_clbp, filename3_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_RD_v3.nii.gz', visit=3)
-    # output_clbp = "/Users/Marc-Antoine/Documents/R_analysis/whole_skeleton_RD_clbp.RData"
-    # output_con = "/Users/Marc-Antoine/Documents/R_analysis/whole_skeleton_RD_con.RData"
+    ## Extract DTI values from selected cluster FA32
+    FA_32_clbp1, FA_32_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp32_v1.nii.gz', visit=1)
+    FA_32_clbp2, FA_32_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp32_v2.nii.gz', visit=2)
+    FA_32_clbp3, FA_32_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp32_v3.nii.gz', visit=3)
+    output_clbp_FA32 = "/Users/Marc-Antoine/Documents/R_analysis/FA32_clbp.RData"
+    output_con_FA32 = "/Users/Marc-Antoine/Documents/R_analysis/FA32_con.RData"
     
-    # dataframe_to_RData(filename1_clbp, filename2_clbp, filename3_clbp, output_clbp)
-    # dataframe_to_RData(filename1_con, filename2_con, filename3_con, output_con)
 
-    # ## extract MD values for the whole TBSS skeleton
-    # filename1_clbp, filename1_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_MD_v1.nii.gz', visit=1)
-    # filename2_clbp, filename2_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_MD_v2.nii.gz', visit=2)
-    # filename3_clbp, filename3_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_MD_v3.nii.gz', visit=3)
-    # output_clbp = "/Users/Marc-Antoine/Documents/R_analysis/whole_skeleton_MD_clbp.RData"
-    # output_con = "/Users/Marc-Antoine/Documents/R_analysis/whole_skeleton_MD_con.RData"
+    dataframe_to_RData(FA_32_clbp1, FA_32_clbp2, FA_32_clbp3, output_clbp_FA32)
+    dataframe_to_RData(FA_32_con1, FA_32_con2, FA_32_con3, output_con_FA32)
+
+    ## Extract DTI values from selected cluster FA34
+    FA_34_clbp1, FA_34_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp34_v1.nii.gz', visit=1)
+    FA_34_clbp2, FA_34_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp34_v2.nii.gz', visit=2)
+    FA_34_clbp3, FA_34_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp34_v3.nii.gz', visit=3)
+    output_clbp_FA34 = "/Users/Marc-Antoine/Documents/R_analysis/FA34_clbp.RData"
+    output_con_FA34 = "/Users/Marc-Antoine/Documents/R_analysis/FA34_con.RData"
     
-    # dataframe_to_RData(filename1_clbp, filename2_clbp, filename3_clbp, output_clbp)
-    # dataframe_to_RData(filename1_con, filename2_con, filename3_con, output_con)
 
-    ## extract AD values for conjunction clusters
-    filename11_clbp, filename11_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust1_v1_conjunction.nii.gz', visit=1)
-    filename12_clbp, filename12_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust2_v1_conjunction.nii.gz', visit=1)
-    filename21_clbp, filename21_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust1_v2_conjunction.nii.gz', visit=2)
-    filename22_clbp, filename22_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust2_v2_conjunction.nii.gz', visit=2)
-    filename31_clbp, filename31_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust1_v3_conjunction.nii.gz', visit=3)
-    filename32_clbp, filename32_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust2_v3_conjunction.nii.gz', visit=3)
-    filename1_clbp = pd.concat([filename11_clbp, filename12_clbp])
-    filename2_clbp = pd.concat([filename21_clbp, filename22_clbp])
-    filename3_clbp = pd.concat([filename31_clbp, filename32_clbp])
-    filename1_con = pd.concat([filename11_con, filename12_con])
-    filename2_con = pd.concat([filename21_con, filename22_con])
-    filename3_con = pd.concat([filename31_con, filename32_con])
-    output_clbp = "/Users/Marc-Antoine/Documents/R_analysis/conjunction_cluster_AD_clbp.RData"
-    output_con = "/Users/Marc-Antoine/Documents/R_analysis/conjunction_cluster_AD_con.RData"
+    dataframe_to_RData(FA_34_clbp1, FA_34_clbp2, FA_34_clbp3, output_clbp_FA34)
+    dataframe_to_RData(FA_34_con1, FA_34_con2, FA_34_con3, output_con_FA34)
 
-    dataframe_to_RData(filename1_clbp, filename2_clbp, filename3_clbp, output_clbp)
-    dataframe_to_RData(filename1_con, filename2_con, filename3_con, output_con)
+    ## Extract DTI values from selected cluster AD
+    AD_clbp1, AD_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/AD_selected_clusters_v1.nii.gz', visit=1)
+    AD_clbp2, AD_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/AD_selected_clusters_v2.nii.gz', visit=2)
+    AD_clbp3, AD_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/AD_selected_clusters_v3.nii.gz', visit=3)
+    output_clbp_AD = "/Users/Marc-Antoine/Documents/R_analysis/AD_clbp.RData"
+    output_con_AD = "/Users/Marc-Antoine/Documents/R_analysis/AD_con.RData"
+    
 
-    # ## extract FA values for conjunction clusters
-    # filename11_clbp, filename11_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust1_v1_conjunction.nii.gz', visit=1)
-    # filename12_clbp, filename12_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust2_v1_conjunction.nii.gz', visit=1)
-    # filename21_clbp, filename21_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust1_v2_conjunction.nii.gz', visit=2)
-    # filename22_clbp, filename22_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust2_v2_conjunction.nii.gz', visit=2)
-    # filename31_clbp, filename31_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust1_v3_conjunction.nii.gz', visit=3)
-    # filename32_clbp, filename32_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust2_v3_conjunction.nii.gz', visit=3)
-    # filename1_clbp = pd.concat([filename11_clbp, filename12_clbp])
-    # filename2_clbp = pd.concat([filename21_clbp, filename22_clbp])
-    # filename3_clbp = pd.concat([filename31_clbp, filename32_clbp])
-    # filename1_con = pd.concat([filename11_con, filename12_con])
-    # filename2_con = pd.concat([filename21_con, filename22_con])
-    # filename3_con = pd.concat([filename31_con, filename32_con])
-    # output_clbp = "/Users/Marc-Antoine/Documents/R_analysis/conjunction_cluster_FA_clbp.RData"
-    # output_con = "/Users/Marc-Antoine/Documents/R_analysis/conjunction_cluster_FA_con.RData"
+    dataframe_to_RData(AD_clbp1, AD_clbp2, AD_clbp3, output_clbp_AD)
+    dataframe_to_RData(AD_con1, AD_con2, AD_con3, output_con_AD)
+    
+    ## Extract DTI values from selected cluster RD
+    RD_clbp1, RD_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/RD_selected_clusters_v1.nii.gz', visit=1)
+    RD_clbp2, RD_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/RD_selected_clusters_v2.nii.gz', visit=2)
+    RD_clbp3, RD_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/RD_selected_clusters_v3.nii.gz', visit=3)
+    output_clbp_RD = "/Users/Marc-Antoine/Documents/R_analysis/RD_clbp.RData"
+    output_con_RD = "/Users/Marc-Antoine/Documents/R_analysis/RD_con.RData"
+    
 
-    # dataframe_to_RData(filename1_clbp, filename2_clbp, filename3_clbp, output_clbp)
-    # dataframe_to_RData(filename1_con, filename2_con, filename3_con, output_con)
-
-    # ## extract MD values for conjunction clusters
-    # filename11_clbp, filename11_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust1_v1_conjunction.nii.gz', visit=1)
-    # filename12_clbp, filename12_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust2_v1_conjunction.nii.gz', visit=1)
-    # filename21_clbp, filename21_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust1_v2_conjunction.nii.gz', visit=2)
-    # filename22_clbp, filename22_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust2_v2_conjunction.nii.gz', visit=2)
-    # filename31_clbp, filename31_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust1_v3_conjunction.nii.gz', visit=3)
-    # filename32_clbp, filename32_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust2_v3_conjunction.nii.gz', visit=3)
-    # filename1_clbp = pd.concat([filename11_clbp, filename12_clbp])
-    # filename2_clbp = pd.concat([filename21_clbp, filename22_clbp])
-    # filename3_clbp = pd.concat([filename31_clbp, filename32_clbp])
-    # filename1_con = pd.concat([filename11_con, filename12_con])
-    # filename2_con = pd.concat([filename21_con, filename22_con])
-    # filename3_con = pd.concat([filename31_con, filename32_con])
-    # output_clbp = "/Users/Marc-Antoine/Documents/R_analysis/conjunction_cluster_MD_clbp.RData"
-    # output_con = "/Users/Marc-Antoine/Documents/R_analysis/conjunction_cluster_MD_con.RData"
-
-    # dataframe_to_RData(filename1_clbp, filename2_clbp, filename3_clbp, output_clbp)
-    # dataframe_to_RData(filename1_con, filename2_con, filename3_con, output_con)
-
-    # ## extract RD values for conjunction clusters
-    # filename11_clbp, filename11_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust1_v1_conjunction.nii.gz', visit=1)
-    # filename12_clbp, filename12_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust2_v1_conjunction.nii.gz', visit=1)
-    # filename21_clbp, filename21_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust1_v2_conjunction.nii.gz', visit=2)
-    # filename22_clbp, filename22_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust2_v2_conjunction.nii.gz', visit=2)
-    # filename31_clbp, filename31_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust1_v3_conjunction.nii.gz', visit=3)
-    # filename32_clbp, filename32_con = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust2_v3_conjunction.nii.gz', visit=3)
-    # filename1_clbp = pd.concat([filename11_clbp, filename12_clbp])
-    # filename2_clbp = pd.concat([filename21_clbp, filename22_clbp])
-    # filename3_clbp = pd.concat([filename31_clbp, filename32_clbp])
-    # filename1_con = pd.concat([filename11_con, filename12_con])
-    # filename2_con = pd.concat([filename21_con, filename22_con])
-    # filename3_con = pd.concat([filename31_con, filename32_con])
-    # output_clbp = "/Users/Marc-Antoine/Documents/R_analysis/conjunction_cluster_RD_clbp.RData"
-    # output_con = "/Users/Marc-Antoine/Documents/R_analysis/conjunction_cluster_RD_con.RData"
-
-    # dataframe_to_RData(filename1_clbp, filename2_clbp, filename3_clbp, output_clbp)
-    # dataframe_to_RData(filename1_con, filename2_con, filename3_con, output_con)
+    dataframe_to_RData(RD_clbp1, RD_clbp2, RD_clbp3, output_clbp_RD)
+    dataframe_to_RData(RD_con1, RD_con2, RD_con3, output_con_RD)
+    
 
 if __name__ == "__main__":
     main()

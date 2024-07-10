@@ -90,11 +90,17 @@ To view files with FA, MD, RD, AD data for a given visit for the clusters produc
 /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v1 /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v2 /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/v3
 
 To view friedman test results (voxels wiill have a chi2 value) for FA, MD, RD, AD for overlapping clusters and whole brain skeleton (see TBSS_friedman_analyis.py)
-go to /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results
+go to /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results.
     -You will find FA, MD, RD, AD friedman test results for overlapping clusters (.csv and .nii files)
     -You will find FA, MD, RD, AD friedman test results for whole skeleton (.csv and .nii files)
 
-To view files with selected clusters that were deterined robust by us (see TBSS_cluster_selection.sh) go to /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/selected_clusters
+To view files with selected clusters that were determined robust by us (see TBSS_cluster_selection.sh) go to /Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters.
     -You will find FA, RD, AD temp files (multiclass mask of all clusters)
     -You will will FA, RD, AD slected_clusters files (all selected clusters for a DTI metric in one file)
+    -You will find friedman folder with DTI data for all visits for I2C2 analysis
 
+To view I2C2 files (see TBSS_friedman_processing.py) go to /Volumes/PT_DATA2/Marc-Antoine/myTBSS/R_analysis.
+    -You will find scripts to perform i2c2 analysis (i2c2_runner.R)
+    -You will find a demo to understand the concept
+    -You will find myTBSS folder with selected cluster I2C2 results
+    -You will find TBSS folder with old results
