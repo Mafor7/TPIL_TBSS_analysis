@@ -1,6 +1,6 @@
 Here is a manual to help you guide through my scripts and how I've used them for my research:
 
-First, I started processing my images with FSL's TBSS tool in the scrip TBSS_processing.sh. 
+First, I started processing my images with FSL's TBSS tool in the script TBSS_processing.sh. 
 This script runs TBSS analysis between clbp and control for visit 1, 2 and 3 for FA, RD, MD and AD 
 and also between control v1 and v2, v1 and v3 and v2 and v3 and also between clbp v1 and v2, v1 and v3 and v2 and v3. 
 
