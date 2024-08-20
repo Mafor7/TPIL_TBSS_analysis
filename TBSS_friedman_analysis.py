@@ -23,25 +23,19 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import pyreadr
-from TBSS_functions import tbss_extractor2, friedman_variability_img, separate_multiclass_mask, call_bash_script, dataframe_to_RData
+from TPIL_TBSS_24072024.friedman_functions import tbss_extractor2, friedman_variability_img, separate_multiclass_mask, call_bash_script
 
 
 def main():
-    # ## Load in crossing fibers files
-    # separate_multiclass_mask('/Volumes/PT_DATA2/Marc-Antoine/Crossing_pockets/dTDM_las.nii.gz', '/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/mask')
 
-    # ## Process friedman files for analysis
-    # call_bash_script("/Users/Marc-Antoine/Documents/tpil_network_analysis/TBSS_friedman_processing.sh")
-
-    ## Create files of clustered significantly different voxel of the TBSS skeleton
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/FA_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/FA_clust", conjunction=True)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/MD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/MD_clust", conjunction=True)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/RD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/RD_clust", conjunction=True)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust1", input2="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/AD_clust2", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/AD_clust", conjunction=True)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_FA", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/whole_skeleton_FA", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_MD", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/whole_skeleton_MD", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_RD", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/whole_skeleton_RD", conjunction=False)
-    friedman_variability_img(input="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/whole_skeleton_AD", output="/Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results_new/whole_skeleton_AD", conjunction=False)
+    friedman_variability_img(input="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/FA_overlap1", input2="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/FA_overlap2", output="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/FA_overlap", conjunction=True)
+    friedman_variability_img(input="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/MD_overlap1", input2="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/MD_overlap2", output="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/MD_overlap", conjunction=True)
+    friedman_variability_img(input="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/RD_overlap1", input2="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/RD_overlap2", output="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/RD_overlap", conjunction=True)
+    friedman_variability_img(input="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/AD_overlap1", input2="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/AD_overlap2", output="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/AD_overlap", conjunction=True)
+    friedman_variability_img(input="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/whole_skeleton_FA", output="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/whole_skeleton_FA", conjunction=False)
+    friedman_variability_img(input="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/whole_skeleton_MD", output="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/whole_skeleton_MD", conjunction=False)
+    friedman_variability_img(input="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/whole_skeleton_RD", output="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/whole_skeleton_RD", conjunction=False)
+    friedman_variability_img(input="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/whole_skeleton_AD", output="/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/whole_skeleton_AD", conjunction=False)
 
 if __name__ == "__main__":
     main()

@@ -58,15 +58,15 @@ def tbss_extractor1(input, visit=1):
     filtered_df = df.loc[(df != 0).any(axis=1)]
 
     if visit == 1:
-        filtered_df.drop(columns=['Subject_2', 'Subject_6', 'Subject_16','Subject_18'], inplace=True)
+        filtered_df.drop(columns=['Subject_6', 'Subject_16','Subject_18'], inplace=True)
         df_clbp = filtered_df.iloc[:, :23]
         df_con = filtered_df.iloc[:, 23:]
     elif visit == 2:
-        filtered_df.drop(columns=['Subject_5', 'Subject_25'], inplace=True)
+        filtered_df.drop(columns=['Subject_6', 'Subject_26'], inplace=True)
         df_clbp = filtered_df.iloc[:, :23]
         df_con = filtered_df.iloc[:, 23:]
     elif visit == 3:
-        filtered_df.drop(columns=['Subject_24'], inplace=True)
+        filtered_df.drop(columns=['Subject_25'], inplace=True)
         df_clbp = filtered_df.iloc[:, :23]
         df_con = filtered_df.iloc[:, 23:]  
     else:
@@ -230,9 +230,9 @@ def friedman_variability_img(input, output, input2=None, conjunction=False):
     # Helper function to load data
     def load_data(input, conjunction, suffix):
         if conjunction:
-            return tbss_extractor1(f"{input}_v1_conjunction{suffix}", visit=1), \
-                   tbss_extractor1(f"{input}_v2_conjunction{suffix}", visit=2), \
-                   tbss_extractor1(f"{input}_v3_conjunction{suffix}", visit=3)
+            return tbss_extractor1(f"{input}_v1{suffix}", visit=1), \
+                   tbss_extractor1(f"{input}_v2{suffix}", visit=2), \
+                   tbss_extractor1(f"{input}_v3{suffix}", visit=3)
         else:
             return tbss_extractor1(f"{input}_v1{suffix}", visit=1), \
                    tbss_extractor1(f"{input}_v2{suffix}", visit=2), \
@@ -266,13 +266,13 @@ def friedman_variability_img(input, output, input2=None, conjunction=False):
     friedman_test_con.to_csv(f"{output}_friedman_con.csv")
     
     # Load original image
-    original_img = nib.load("/Volumes/PT_DATA2/Marc-Antoine/myTBSS/data/v1/stats/all_FA_skeletonised.nii.gz")
+    original_img = nib.load("/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/v1/stats/all_FA_skeletonised.nii.gz")
     friedman_img_clbp = associate_friedman_statistic_with_voxels(friedman_test_clbp, original_img)
     friedman_img_con = associate_friedman_statistic_with_voxels(friedman_test_con, original_img)
 
     if conjunction:
-        nib.save(friedman_img_clbp, f"{output}_friedman_clbp_conjunction.nii.gz")
-        nib.save(friedman_img_con, f"{output}_friedman_con_conjunction.nii.gz")
+        nib.save(friedman_img_clbp, f"{output}_friedman_clbp.nii.gz")
+        nib.save(friedman_img_con, f"{output}_friedman_con.nii.gz")
     else:
         nib.save(friedman_img_clbp, f"{output}_friedman_clbp.nii.gz")
         nib.save(friedman_img_con, f"{output}_friedman_con.nii.gz")

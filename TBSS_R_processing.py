@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import pyreadr
-from TBSS_functions import tbss_extractor1, friedman_variability_img, separate_multiclass_mask, call_bash_script
+from friedman_functions import tbss_extractor1, friedman_variability_img, separate_multiclass_mask, call_bash_script
 
 def prepare_dataframe(df, visit_number):
     # Step 1: Rename columns to a simple list of integers starting from 0
@@ -71,56 +71,67 @@ def dataframe_to_RData(df_v1, df_v2, df_v3, output_path):
 
 def main():
    
-    ### Extract DTI values from selected cluster FA30
-    FA_30_clbp1, FA_30_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp30_v1.nii.gz', visit=1)
-    FA_30_clbp2, FA_30_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp30_v2.nii.gz', visit=2)
-    FA_30_clbp3, FA_30_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp30_v3.nii.gz', visit=3)
-    output_clbp_FA30 = "/Users/Marc-Antoine/Documents/R_analysis/FA30_clbp.RData"
-    output_con_FA30 = "/Users/Marc-Antoine/Documents/R_analysis/FA30_con.RData"
+    # ### Extract DTI values from selected cluster FA30
+    # FA_30_clbp1, FA_30_con1 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID30_v1.nii.gz', visit=1)
+    # FA_30_clbp2, FA_30_con2 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID30_v2.nii.gz', visit=2)
+    # FA_30_clbp3, FA_30_con3 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID30_v3.nii.gz', visit=3)
+    # output_clbp_FA30 = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/FA30_clbp.RData"
+    # output_con_FA30 = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/FA30_con.RData"
     
 
-    dataframe_to_RData(FA_30_clbp1, FA_30_clbp2, FA_30_clbp3, output_clbp_FA30)
-    dataframe_to_RData(FA_30_con1, FA_30_con2, FA_30_con3, output_con_FA30)
+    # dataframe_to_RData(FA_30_clbp1, FA_30_clbp2, FA_30_clbp3, output_clbp_FA30)
+    # dataframe_to_RData(FA_30_con1, FA_30_con2, FA_30_con3, output_con_FA30)
 
-    ## Extract DTI values from selected cluster FA32
-    FA_32_clbp1, FA_32_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp32_v1.nii.gz', visit=1)
-    FA_32_clbp2, FA_32_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp32_v2.nii.gz', visit=2)
-    FA_32_clbp3, FA_32_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp32_v3.nii.gz', visit=3)
-    output_clbp_FA32 = "/Users/Marc-Antoine/Documents/R_analysis/FA32_clbp.RData"
-    output_con_FA32 = "/Users/Marc-Antoine/Documents/R_analysis/FA32_con.RData"
+    # ## Extract DTI values from selected cluster FA31
+    # FA_31_clbp1, FA_31_con1 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID31_v1.nii.gz', visit=1)
+    # FA_31_clbp2, FA_31_con2 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID31_v2.nii.gz', visit=2)
+    # FA_31_clbp3, FA_31_con3 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID31_v3.nii.gz', visit=3)
+    # output_clbp_FA31 = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/FA31_clbp.RData"
+    # output_con_FA31 = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/FA31_con.RData"
     
 
-    dataframe_to_RData(FA_32_clbp1, FA_32_clbp2, FA_32_clbp3, output_clbp_FA32)
-    dataframe_to_RData(FA_32_con1, FA_32_con2, FA_32_con3, output_con_FA32)
+    # dataframe_to_RData(FA_31_clbp1, FA_31_clbp2, FA_31_clbp3, output_clbp_FA31)
+    # dataframe_to_RData(FA_31_con1, FA_31_con2, FA_31_con3, output_con_FA31)
 
-    ## Extract DTI values from selected cluster FA34
-    FA_34_clbp1, FA_34_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp34_v1.nii.gz', visit=1)
-    FA_34_clbp2, FA_34_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp34_v2.nii.gz', visit=2)
-    FA_34_clbp3, FA_34_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/FA_temp34_v3.nii.gz', visit=3)
-    output_clbp_FA34 = "/Users/Marc-Antoine/Documents/R_analysis/FA34_clbp.RData"
-    output_con_FA34 = "/Users/Marc-Antoine/Documents/R_analysis/FA34_con.RData"
+    # ## Extract DTI values from selected cluster FA34
+    # FA_34_clbp1, FA_34_con1 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID34_v1.nii.gz', visit=1)
+    # FA_34_clbp2, FA_34_con2 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID34_v2.nii.gz', visit=2)
+    # FA_34_clbp3, FA_34_con3 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID34_v3.nii.gz', visit=3)
+    # output_clbp_FA34 = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/FA34_clbp.RData"
+    # output_con_FA34 = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/FA34_con.RData"
     
 
-    dataframe_to_RData(FA_34_clbp1, FA_34_clbp2, FA_34_clbp3, output_clbp_FA34)
-    dataframe_to_RData(FA_34_con1, FA_34_con2, FA_34_con3, output_con_FA34)
+    # dataframe_to_RData(FA_34_clbp1, FA_34_clbp2, FA_34_clbp3, output_clbp_FA34)
+    # dataframe_to_RData(FA_34_con1, FA_34_con2, FA_34_con3, output_con_FA34)
+
+    # ## Extract DTI values from selected cluster FA35
+    # FA_35_clbp1, FA_35_con1 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID35_v1.nii.gz', visit=1)
+    # FA_35_clbp2, FA_35_con2 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID35_v2.nii.gz', visit=2)
+    # FA_35_clbp3, FA_35_con3 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/FA_ID35_v3.nii.gz', visit=3)
+    # output_clbp_FA35 = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/FA35_clbp.RData"
+    # output_con_FA35 = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/FA35_con.RData"
+    
+
+    # dataframe_to_RData(FA_35_clbp1, FA_35_clbp2, FA_35_clbp3, output_clbp_FA35)
+    # dataframe_to_RData(FA_35_con1, FA_35_con2, FA_35_con3, output_con_FA35)
 
     ## Extract DTI values from selected cluster AD
-    AD_clbp1, AD_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/AD_selected_clusters_v1.nii.gz', visit=1)
-    AD_clbp2, AD_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/AD_selected_clusters_v2.nii.gz', visit=2)
-    AD_clbp3, AD_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/AD_selected_clusters_v3.nii.gz', visit=3)
-    output_clbp_AD = "/Users/Marc-Antoine/Documents/R_analysis/AD_clbp.RData"
-    output_con_AD = "/Users/Marc-Antoine/Documents/R_analysis/AD_con.RData"
+    AD_clbp1, AD_con1 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/AD_ID13_v1.nii.gz', visit=1)
+    AD_clbp2, AD_con2 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/AD_ID13_v2.nii.gz', visit=2)
+    AD_clbp3, AD_con3 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/AD_ID13_v3.nii.gz', visit=3)
+    output_clbp_AD = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/AD13_clbp.RData"
+    output_con_AD = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/AD13_con.RData"
     
 
     dataframe_to_RData(AD_clbp1, AD_clbp2, AD_clbp3, output_clbp_AD)
     dataframe_to_RData(AD_con1, AD_con2, AD_con3, output_con_AD)
     
     ## Extract DTI values from selected cluster RD
-    RD_clbp1, RD_con1 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/RD_selected_clusters_v1.nii.gz', visit=1)
-    RD_clbp2, RD_con2 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/RD_selected_clusters_v2.nii.gz', visit=2)
-    RD_clbp3, RD_con3 = tbss_extractor1('/Volumes/PT_DATA2/Marc-Antoine/myTBSS/selected_clusters/friedman/RD_selected_clusters_v3.nii.gz', visit=3)
-    output_clbp_RD = "/Users/Marc-Antoine/Documents/R_analysis/RD_clbp.RData"
-    output_con_RD = "/Users/Marc-Antoine/Documents/R_analysis/RD_con.RData"
+    RD_clbp1, RD_con1 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/RD_ID13_v1.nii.gz', visit=1)
+    RD_clbp2, RD_con2 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/RD_ID13_v2.nii.gz', visit=2)
+    RD_clbp3, RD_con3 = tbss_extractor1('/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/selected_clusters/RD_ID13_v3.nii.gz', visit=3)
+    output_clbp_RD = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/RD13_clbp.RData"
+    output_con_RD = "/Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/R_analysis/RD13_con.RData"
     
 
     dataframe_to_RData(RD_clbp1, RD_clbp2, RD_clbp3, output_clbp_RD)

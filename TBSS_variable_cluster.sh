@@ -2,26 +2,25 @@
 
 # Script to binarize variable friedman maps
 # FA Friedman results
-cluster -i /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/FA_clust1_friedman_clbp_conjunction.nii.gz -t 6.0 -o /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/FA_clust_variable_friedman_clbp_conjunction.nii.gz
-cluster -i /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/FA_clust1_friedman_con_conjunction.nii.gz -t 6.0 -o /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/FA_clust_variable_friedman_con_conjunction.nii.gz
-fslmaths /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/FA_clust_variable_friedman_clbp_conjunction.nii.gz -bin /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/FA_clust_variable_friedman_clbp_conjunction.nii.gz
-fslmaths /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/FA_clust_variable_friedman_con_conjunction.nii.gz -bin /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/FA_clust_variable_friedman_con_conjunction.nii.gz
+cluster -i /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/FA_overlap_friedman_clbp.nii.gz -t 6.0 -o /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/FA_overlap_friedman_clbp_variable.nii.gz
+cluster -i /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/FA_overlap_friedman_con.nii.gz -t 6.0 -o /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/FA_overlap_friedman_con_variable.nii.gz
+fslmaths /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/FA_overlap_friedman_clbp_variable.nii.gz -bin /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/FA_overlap_friedman_clbp_variable.nii.gz
+fslmaths /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/FA_overlap_friedman_con_variable.nii.gz -bin /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/FA_overlap_friedman_con_variable.nii.gz
 
 # MD Friedman results
-cluster -i /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/MD_clust1_friedman_clbp_conjunction.nii.gz -t 6.0 -o /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/MD_clust_variable_friedman_clbp_conjunction.nii.gz
-cluster -i /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/MD_clust1_friedman_con_conjunction.nii.gz -t 6.0 -o /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/MD_clust_variable_friedman_con_conjunction.nii.gz
-fslmaths /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/MD_clust_variable_friedman_clbp_conjunction.nii.gz -bin /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/MD_clust_variable_friedman_clbp_conjunction.nii.gz
-fslmaths /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/MD_clust_variable_friedman_con_conjunction.nii.gz -bin /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/MD_clust_variable_friedman_con_conjunction.nii.gz
+cluster -i /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/MD_overlap_friedman_clbp.nii.gz -t 6.0 -o /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/MD_overlap_friedman_clbp_variable.nii.gz
+cluster -i /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/MD_overlap_friedman_con.nii.gz -t 6.0 -o /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/MD_overlap_friedman_con_variable.nii.gz
+fslmaths /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/MD_overlap_friedman_clbp_variable.nii.gz -bin /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/MD_overlap_friedman_clbp_variable.nii.gz
+fslmaths /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/MD_overlap_friedman_con_variable.nii.gz -bin /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/MD_overlap_friedman_con_variable.nii.gz
 
 # RD Friedman results
-cluster -i /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/RD_clust1_friedman_clbp_conjunction.nii.gz -t 6.0 -o /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/RD_clust_variable_friedman_clbp_conjunction.nii.gz
-cluster -i /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/RD_clust1_friedman_con_conjunction.nii.gz -t 6.0 -o /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/RD_clust_variable_friedman_con_conjunction.nii.gz
-fslmaths /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/RD_clust_variable_friedman_clbp_conjunction.nii.gz -bin /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/RD_clust_variable_friedman_clbp_conjunction.nii.gz
-fslmaths /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/RD_clust_variable_friedman_con_conjunction.nii.gz -bin /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/RD_clust_variable_friedman_con_conjunction.nii.gz
+cluster -i /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/RD_overlap_friedman_clbp.nii.gz -t 6.0 -o /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/RD_overlap_friedman_clbp_variable.nii.gz
+cluster -i /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/RD_overlap_friedman_con.nii.gz -t 6.0 -o /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/RD_overlap_friedman_con_variable.nii.gz
+fslmaths /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/RD_overlap_friedman_clbp_variable.nii.gz -bin /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/RD_overlap_friedman_clbp_variable.nii.gz
+fslmaths /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/RD_overlap_friedman_con_variable.nii.gz -bin /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/RD_overlap_friedman_con_variable.nii.gz
 
 # AD Friedman results
-cluster -i /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust1_friedman_clbp_conjunction.nii.gz -t 6.0 -o /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust_variable_friedman_clbp_conjunction.nii.gz
-cluster -i /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust1_friedman_con_conjunction.nii.gz -t 6.0 -o /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust_variable_friedman_con_conjunction.nii.gz
-fslmaths /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust_variable_friedman_clbp_conjunction.nii.gz -bin /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust_variable_friedman_clbp_conjunction.nii.gz
-fslmaths /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust_variable_friedman_con_conjunction.nii.gz -bin /Volumes/PT_DATA2/Marc-Antoine/myTBSS/friedman/results/AD_clust_variable_friedman_con_conjunction.nii.gz
-
+cluster -i /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/AD_overlap_friedman_clbp.nii.gz -t 6.0 -o /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/AD_overlap_friedman_clbp_variable.nii.gz
+cluster -i /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/AD_overlap_friedman_con.nii.gz -t 6.0 -o /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/AD_overlap_friedman_con_variable.nii.gz
+fslmaths /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/AD_overlap_friedman_clbp_variable.nii.gz -bin /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/AD_overlap_friedman_clbp_variable.nii.gz
+fslmaths /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/AD_overlap_friedman_con_variable.nii.gz -bin /Users/Marc-Antoine/repositories/TPIL_TBSS_24072024/clbp_conT/friedman/results/AD_overlap_friedman_con_variable.nii.gz
